@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Calculator Prototype</title>
+        <style>
+            body {
+                background-color: gray;
+                color: white;
+            }
+
+
+            .container {
+                display: flex;
+                flex-direction: column;
+            }
+
+            button {
+                width: 50px;
+                height: 50px;
+                margin: 5px;
+            }
+        </style>
+    </head>
+
+    <body>
+    <p>Simple Calculator</p>
+    <p class="numberScreen">
+        you calculation goes here.
+    </p>
+    <div class="container">
+        <div>
+            <button onclick="
+            updateCalculation('1');
+            ">1</button>
+            <button onclick="
+            updateCalculation('2');
+            ">2</button>
+            <button onclick="
+            updateCalculation('3');
+            ">3</button>
+            <button onclick="
+            updateCalculation(' + ')";>
+            +</button>
+        </div>
+
+        <div>
+            <button onclick=";
+            updateCalculation('4');
+            ">4</button>
+            <button onclick="
+            updateCalculation('5');
+            ">5</button>
+            <button onclick="
+            updateCalculation('6');
+            ">6</button>
+            <button onclick="
+            updateCalculation(' - ')";>
+            -</button>
+        </div>
+
+        <div>
+            <button onclick="
+            updateCalculation('7');
+            ">7</button>
+            <button onclick="
+            updateCalculation('8');
+            ">8</button>
+            <button onclick="
+            updateCalculation('9');
+            ">9</button>
+            <button onclick="
+            updateCalculation(' * ')";
+            >*</button>
+        </div>
+
+        <div>
+            <button onclick="
+            updateCalculation('0');
+            ">0</button>
+            <button onclick="
+            updateCalculation('.');
+            ">.</button>
+            <button onclick="
+                calculate();
+            ">=</button>
+            <button onclick="
+            updateCalculation(' / ')";>/</button>
+        </div>
+
+        <div>
+            <button onclick="
+                clearCalculation();
+            ">AC</button>
+            <button onclick="
+                changeSign();
+            ">+/-</button>
+            <button onclick="
+                backspace();
+            ">DEL</button>
+        </div>
+    </div>
+
+    </body>
+    
+    <script>
+    let calculation = localStorage.getItem('calculation') || ``;
+    showCalculation();
+
+    function updateCalculation(val) {
+        calculation += val;
+        showCalculation();
+        localStorage.setItem('calculation', calculation);
+    }
+
+    function saveCalculation () {
+        localStorage.setItem('calculation', calculation);    
+    }
+
+    function showCalculation () {
+        document.querySelector('.numberScreen').innerHTML = `${calculation}`;
+    }
+
+    function calculate () {
+        try {
+            calculation = eval(calculation);
+        } catch (e) {
+            calculation = 'Error';
+        }
+        saveCalculation();
+        showCalculation();
+    }
+
+    function clearCalculation() {
+        calculation = '';
+        showCalculation();
+        saveCalculation();
+
+    }
+
+    function changeSign(){
+        if (calculation !== '' || calculation!== '0'){
+            if (calculation.startsWith('-')){
+                calculation = calculation.slice(1);
+            } else {
+                calculation = "-" + calculation;
+            }
+            showCalculation();
+            saveCalculation();
+        }
+    }
+
+    function backspace() {
+        calculation = calculation.slice(0,-1);
+        showCalculation();
+        saveCalculation();
+    }
+
+    
+    </script>
+</html>
